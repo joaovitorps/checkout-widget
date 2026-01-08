@@ -27,8 +27,10 @@ export const App = ({ price, currency }: CmsDataProps) => {
     if (buttonRef.current) {
       buttonRef.current.dispatchEvent(
         new CustomEvent("payment-success", {
-          composed: true,
+          // makes it 'bubbles' up to parent DOM elements
           bubbles: true,
+          // allow event to cross the shadow DOM boundary
+          composed: true,
           detail: {
             price,
             currency,
