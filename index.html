@@ -30,5 +30,12 @@
       <p>&copy; 2026 Merchant Inc.</p>
     </footer>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener("payment-success", (customEvent) =>
+        alert(
+          "Success! " + customEvent.detail.currency + customEvent.detail.price
+        )
+      );
+    </script>
   </body>
 </html>
