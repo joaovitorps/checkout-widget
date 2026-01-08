@@ -6,7 +6,21 @@
     <title>Checkout Widget</title>
   </head>
   <body>
-    <div id="root"></div>
+    <header style="background: #333; color: white; padding: 20px">
+      <h1>My Cool T-Shirt Store</h1>
+    </header>
+
+    <div style="padding: 20px">
+      <h2>Blue T-Shirt</h2>
+      <p>Price: $20.00</p>
+      <p>Description: The best t-shirt ever.</p>
+
+      <div id="plugin-container" data-price="2000" data-currency="USD"></div>
+    </div>
+
+    <footer style="margin-top: 50px; border-top: 1px solid #ccc">
+      <p>&copy; 2026 Merchant Inc.</p>
+    </footer>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
