@@ -3,3 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+button {
+  all: unset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+
+  border: 0.125rem solid #0075eb;
+  background-color: #0075eb;
+  border-radius: 10rem;
+  padding: 0.625rem;
+  font: 1rem/1.35rem sans-serif;
+}

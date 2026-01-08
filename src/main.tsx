@@ -1,18 +1,30 @@
-import "./index.css";
+import styles from "./index.css?inline";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./app.tsx";
 
 const initPluginContainer = () => {
-  const element = document.getElementById("plugin-container");
+  const shadowHost = document.getElementById("plugin-container");
 
-  if (!element) {
-    console.error("checkout-widget not loaded");
-    return;
-  }
+  if (!shadowHost) return;
 
-  const { price = "0", currency = "EUR" } = element.dataset;
+  const shadowRoot = shadowHost.attachShadow({ mode: "open" });
+
+  // performance approach
+  const adoptedStyle = new CSSStyleSheet();
+  adoptedStyle.replaceSync(styles);
+
+  shadowRoot.adoptedStyleSheets = [adoptedStyle];
+
+  // compatibility approach
+  // const styleTag = document.createElement("style");
+  // styleTag.textContent = styles;
+
+  // shadowRoot.appendChild(styleTag);
+
+  const { price, currency } = shadowHost.dataset;
+  if (!price || !currency) return;
 
   const parsedPrice = parseInt(price);
 
@@ -21,7 +33,7 @@ const initPluginContainer = () => {
     return;
   }
 
-  createRoot(element).render(
+  createRoot(shadowRoot).render(
     <StrictMode>
       <App price={parsedPrice} currency={currency} />
     </StrictMode>
