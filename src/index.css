@@ -10,9 +10,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
+  gap: 0.5rem;
 
-  border: 0.125rem solid #0075eb;
+  width: fit-content;
+  cursor: pointer;
+
   background-color: #0075eb;
   border-radius: 10rem;
   padding: 0.625rem;
