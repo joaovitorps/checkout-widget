@@ -14,37 +14,71 @@ const formattedCurrency = ({ price, currency }: CmsDataProps) => {
 
 export const App = ({ price, currency }: CmsDataProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  const apiCall = async (): Promise<number> => {
+    return new Promise((resolve, reject) => {
+      const success = Math.round(Math.random());
+
+      setTimeout(
+        () => (success ? resolve(20) : reject(new Error("API error"))),
+        2000
+      );
+    });
+  };
+
   const handlePayment = async () => {
     setIsLoading(true);
+    setErrorMessage(null);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await apiCall()
+      .then(() => {
+        if (buttonRef.current) {
+          buttonRef.current.dispatchEvent(
+            new CustomEvent("payment-success", {
+              // makes it 'bubbles' up to parent DOM elements
+              bubbles: true,
+              // allow event to cross the shadow DOM boundary
+              composed: true,
+              detail: {
+                price,
+                currency,
+              },
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        const msg = error instanceof Error ? error.message : "Unknown Error";
 
-    setIsLoading(false);
+        console.error("Payment failed:", msg);
 
-    if (buttonRef.current) {
-      buttonRef.current.dispatchEvent(
-        new CustomEvent("payment-success", {
-          // makes it 'bubbles' up to parent DOM elements
-          bubbles: true,
-          // allow event to cross the shadow DOM boundary
-          composed: true,
-          detail: {
-            price,
-            currency,
-          },
-        })
-      );
-    }
+        setErrorMessage(
+          "We were unable to fulfill the payment now, please try again in a few minutes"
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
-    <button ref={buttonRef} onClick={handlePayment} disabled={isLoading}>
-      {isLoading
-        ? "Loading..."
-        : `Pay ${formattedCurrency({ price, currency })}`}
-    </button>
+    <>
+      <button ref={buttonRef} onClick={handlePayment} disabled={isLoading}>
+        {isLoading
+          ? "Loading..."
+          : `Pay ${formattedCurrency({ price, currency })}`}
+      </button>
+      {errorMessage && (
+        <span
+          role="alert"
+          style={{ display: "inline-block", color: "red", marginTop: ".5rem" }}
+        >
+          {errorMessage}
+        </span>
+      )}
+    </>
   );
 };
