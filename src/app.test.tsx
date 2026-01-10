@@ -18,6 +18,9 @@ test("show loading message when clicked", async () => {
     name: "Pay €55.00",
   });
 
+  // can use userEvent from @testing-library/user-event
+  // as it simulate an actual mouse click
+  // not only send a DOM event
   fireEvent.click(paymentButton);
   expect(paymentButton).toHaveTextContent(/^Loading...$/);
   expect(paymentButton).toBeDisabled();
