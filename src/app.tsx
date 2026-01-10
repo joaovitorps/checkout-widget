@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { apiCall } from "./api";
 
 interface CmsDataProps {
   price: number;
@@ -17,17 +18,6 @@ export const App = ({ price, currency }: CmsDataProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const apiCall = async (): Promise<number> => {
-    return new Promise((resolve, reject) => {
-      const success = Math.round(Math.random());
-
-      setTimeout(
-        () => (success ? resolve(20) : reject(new Error("API error"))),
-        2000
-      );
-    });
-  };
 
   const handlePayment = async () => {
     setIsLoading(true);
