@@ -21,6 +21,7 @@
       background-color: red !important;
       border-radius: 0 !important;
       padding: 0.5rem !important;
+      cursor: pointer;
     }
   </style>
   <body>
@@ -31,11 +32,10 @@
     <div style="padding: 20px">
       <button>Home</button>
       <h2>Blue T-Shirt</h2>
-      <p>Price: $20.00</p>
+      <p id="price">Price:</p>
       <p>Description: The best t-shirt ever.</p>
 
-      <div id="plugin-container" data-price="2000" data-currency="EUR"></div>
-      <div id="plugin-container" data-price="2000" data-currency="EUR"></div>
+      <div id="plugin-container"></div>
     </div>
 
     <footer style="margin-top: 50px; border-top: 1px solid #ccc">
@@ -48,6 +48,29 @@
           "Success! " + customEvent.detail.currency + customEvent.detail.price
         )
       );
+
+      const url = new URL(window.location.href);
+
+      if (url.searchParams.size < 2) {
+        url.searchParams.set("price", 2000);
+        url.searchParams.set("currency", "EUR");
+        window.history.replaceState({}, "", url);
+      }
+
+      console.log(url.searchParams.get("price"));
+
+      const divPluginContainer = document.getElementById("plugin-container");
+      const price = document.getElementById("price");
+
+      price.innerHTML +=
+        " " +
+        new Intl.NumberFormat("en-GB", {
+          style: "currency",
+          currency: url.searchParams.get("currency"),
+        }).format(url.searchParams.get("price") / 100);
+
+      divPluginContainer.dataset.price = url.searchParams.get("price");
+      divPluginContainer.dataset.currency = url.searchParams.get("currency");
     </script>
   </body>
 </html>
