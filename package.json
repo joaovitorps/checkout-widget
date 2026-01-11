@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --config vite.js-only.config.ts",
+    "build:demo": "tsc -b && vite build --outDir=demo",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest"
