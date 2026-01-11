@@ -10,4 +10,15 @@ export default defineConfig({
     globals: true,
     setupFiles: "/src/tests/setup.ts",
   },
+  define: {
+    "process.env": {},
+  },
+  build: {
+    lib: {
+      entry: "./src/main.tsx",
+      name: "ButtonPaymentWidget",
+      fileName: "widget",
+      formats: ["umd"],
+    },
+  },
 });
