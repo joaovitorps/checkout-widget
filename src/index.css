@@ -19,4 +19,6 @@ button {
   border-radius: 10rem;
   padding: 0.625rem;
   font: 1rem/1.35rem sans-serif;
+
+  color: black;
 }

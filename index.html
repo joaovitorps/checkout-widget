@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout Widget</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <style>
+    html {
+      font-family: "Inter", sans-serif;
+    }
+
     button {
+      border: none !important;
       background-color: red !important;
-      font-size: 50px !important;
       border-radius: 0 !important;
-      padding: 50px !important;
+      padding: 0.5rem !important;
     }
   </style>
   <body>
     <header style="background: #333; color: white; padding: 20px">
-      <h1>My Cool T-Shirt Store</h1>
+      <h1>T-Shirt Store</h1>
     </header>
 
     <div style="padding: 20px">
+      <button>Home</button>
       <h2>Blue T-Shirt</h2>
       <p>Price: $20.00</p>
       <p>Description: The best t-shirt ever.</p>
 
+      <div id="plugin-container" data-price="2000" data-currency="EUR"></div>
       <div id="plugin-container" data-price="2000" data-currency="EUR"></div>
     </div>
 
